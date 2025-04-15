@@ -153,10 +153,17 @@ _search = _search.replace('-','%2D')
 
 
 if args.extend:
-    # domain_regexp = r'[0-9a-zA-Z_\-\.]+' + _domain.replace('.','\.')
-    domain_regexp = r'([0-9a-z_\-\.]+\.([0-9a-z_\-]+)?'+t_host_parse.domain+'([0-9a-z_\-\.]+)?\.[a-z]{1,5})'
+    domain_regexp = (
+        r'([0-9a-z_\-\.]+\.([0-9a-z_\-]+)?' +
+        re.escape(t_host_parse.domain) +
+        r'([0-9a-z_\-\.]+)?\.[a-z]{1,5})'
+    )
 else:
-    domain_regexp = r'(([0-9a-z_\-\.]+)\.' + _domain.replace('.','\.')+')'
+    domain_regexp = (
+        r'(([0-9a-z_\-\.]+)\.' +
+        re.escape(_domain) +
+        r')'
+    )
 
 if args.verbose:
     print( "Search: %s" % _search )
